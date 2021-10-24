@@ -7,12 +7,6 @@ const PATHS = {
 }
 
 module.exports = {
-  devServer: {
-    contentBase: PATHS.src,
-    hot: true,
-    inline: true
-  },
-
   mode: 'development',
 
   entry: [
@@ -24,20 +18,18 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.ts', '.js', '.sass', '.css']
+    extensions: ['.ts', '.js']
   },
 
   module: {
     rules: [
       {
         test: /\.sass$/,
-        include: [path.resolve(PATHS.src, 'components')],
-        use: ['raw-loader', 'sass-loader?indentedSyntax']
-      },
-      {
-        test: /\.sass$/,
-        include: [path.resolve(PATHS.src, 'assets/style')],
-        use: ['style-loader', 'css-loader', 'sass-loader?indentedSyntax']
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.ts$/,
@@ -47,7 +39,6 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({ template: path.join(PATHS.src, 'index.html') })
   ]
 }
